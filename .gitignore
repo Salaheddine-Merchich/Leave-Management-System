@@ -1,0 +1,15 @@
+# Java
+/target
+*.class
+*.jar
+*.war
+
+# Angular
+/node_modules
+/dist
+.angular
+
+# Others
+*.log
+*.env
+.DS_Store
