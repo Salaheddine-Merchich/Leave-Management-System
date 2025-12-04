@@ -6,7 +6,7 @@
 
 # Ignore sensitive Spring Boot config
 src/main/resources/application.properties
-
+backend\target\classes\application.properties
 # === Angular ===
 /node_modules
 /dist

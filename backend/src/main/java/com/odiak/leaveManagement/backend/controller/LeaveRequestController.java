@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import com.odiak.leaveManagement.backend.models.User;
 
 import java.util.List;
 @RestController
@@ -29,13 +28,16 @@ public class LeaveRequestController {
     public LeaveRequest getLeaveRequestById(@PathVariable Long id) {
         return leaveRequestService.getLeaveRequestById(id);
     }
-    @GetMapping("/user/{userId}")
-    public List<LeaveRequest> getLeaveRequestsByUser(@PathVariable Long userId) {
-        User user = new User();
-        user.setId(userId);
-        return leaveRequestService.findByUser(user);
+    @PostMapping
+    public LeaveRequest createLeaveRequest(@RequestBody LeaveRequest leaveRequest) {
+        return leaveRequestService.createLeaveRequest(leaveRequest);
     }
-
-
-
+    @PutMapping("/{id}")
+    public LeaveRequest updateLeaveRequest(@PathVariable Long id, @RequestBody LeaveRequest leaveRequestDetails) {
+        return leaveRequestService.updateLeaveRequest(id, leaveRequestDetails);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteLeaveRequest(@PathVariable Long id) {
+        leaveRequestService.deleteLeaveRequest(id);
+    }
 }

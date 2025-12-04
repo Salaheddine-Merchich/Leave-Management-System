@@ -6,6 +6,7 @@ import com.odiak.leaveManagement.backend.repositories.LeaveRequestRepository;
 import com.odiak.leaveManagement.backend.models.LeaveRequest;
 import java.util.List;
 import com.odiak.leaveManagement.backend.models.User;
+
 @Service
 public class LeaveRequestService {
 
@@ -27,6 +28,7 @@ public class LeaveRequestService {
         leaveRequest.setStartDate(leaveRequestDetails.getStartDate());
         leaveRequest.setEndDate(leaveRequestDetails.getEndDate());
         leaveRequest.setReason(leaveRequestDetails.getReason());
+        leaveRequest.setStatus(leaveRequestDetails.getStatus());
         return leaveRequestRepository.save(leaveRequest);
     }
     public void deleteLeaveRequest(Long id) {
@@ -39,8 +41,4 @@ public class LeaveRequestService {
     public List<LeaveRequest> findByStatus(LeaveRequest.LeaveStatus status){
         return leaveRequestRepository.findByStatus(status);
     }
-
-    
-
-
 }

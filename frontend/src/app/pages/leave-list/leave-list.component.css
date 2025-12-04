@@ -1,0 +1,93 @@
+.leaves-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #1e293b;
+}
+
+.leave-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leave-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  transition: box-shadow 0.3s ease;
+}
+
+.leave-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.leave-info h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #0f172a;
+}
+
+.leave-info p {
+  margin: 4px 0;
+  color: #475569;
+}
+
+.leave-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.info-btn,
+.delete-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.info-btn {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.info-btn:hover {
+  background-color: #2563eb;
+}
+
+.delete-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+}
+
+.no-leaves {
+  text-align: center;
+  font-size: 18px;
+  color: #6b7280;
+  margin-top: 40px;
+}

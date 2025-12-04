@@ -1,0 +1,80 @@
+/* Conteneur principal */
+.employees-container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px 20px;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* En-tête */
+.user-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 26px;
+  color: #1f2937;
+  font-weight: bold;
+}
+
+/* Carte utilisateur */
+.user-details-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  flex-wrap: wrap;
+}
+
+/* Avatar */
+.user-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* Infos */
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.user-email,
+.user-role {
+  font-size: 15px;
+  color: #4b5563;
+  margin: 4px 0;
+}
+
+.user-role span {
+  font-weight: 500;
+  color: #1d4ed8;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .user-details-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .user-info {
+    margin-top: 10px;
+  }
+}

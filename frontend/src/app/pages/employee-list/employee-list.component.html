@@ -1,0 +1,22 @@
+<section class="employees-container">
+  <h2 class="section-title">👥 Liste des Employés</h2>
+
+  <div *ngIf="users.length > 0; else noUsers">
+    <ul class="user-list">
+      <li *ngFor="let user of users" class="user-card">
+        <div class="user-info">
+          <strong>{{ user.name }}</strong><br />
+          <span class="user-email">{{ user.email }}</span>
+        </div>
+        <div class="actions">
+          <a [routerLink]="['/info-employee', user.id]" class="info-link">Voir info employé</a>
+          <button (click)="deleteUser(user.id)" class="delete-button">Supprimer</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noUsers>
+    <p>Aucun employé trouvé.</p>
+  </ng-template>
+</section>

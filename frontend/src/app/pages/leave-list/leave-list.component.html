@@ -1,0 +1,25 @@
+<section class="leaves-container">
+  <h1 class="title">🗓️ Tous les congés disponibles</h1>
+  <hr>
+
+  @if (leaveRequests.length > 0) {
+    <ul class="leave-list">
+      @for (leaveRequest of leaveRequests; track leaveRequest.id) {
+        <li class="leave-card">
+          <div class="leave-info">
+            <h2>📌 Raison : {{ leaveRequest.reason }}</h2>
+            <p><strong>Début :</strong> {{ leaveRequest.startDate }}</p>
+            <p><strong>Fin :</strong> {{ leaveRequest.endDate }}</p>
+          </div>
+          <div class="leave-actions">
+            <a [routerLink]="['/edit-leave', leaveRequest.id]" class="info-btn">ℹ️ Edit</a>
+            <a [routerLink]="['/info-leave', leaveRequest.id]" class="info-btn">ℹ️ Détails</a>
+            <button (click)="deleteLeaveRequest(leaveRequest.id)" class="delete-btn">🗑️ Supprimer</button>
+          </div>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="no-leaves">Aucune demande de congé disponible.</p>
+  }
+</section>
