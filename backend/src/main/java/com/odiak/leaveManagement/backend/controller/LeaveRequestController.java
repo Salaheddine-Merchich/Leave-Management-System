@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import jakarta.validation.Valid;
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/leave-requests")
+@CrossOrigin(origins = "http://localhost:4200")
 public class LeaveRequestController {
 
     @Autowired
@@ -24,20 +28,24 @@ public class LeaveRequestController {
     public List<LeaveRequest> getAllLeaveRequests() {
         return leaveRequestService.getAllLeaveRequests();
     }
+
     @GetMapping("/{id}")
-    public LeaveRequest getLeaveRequestById(@PathVariable Long id) {
+    public LeaveRequest getLeaveRequestById(@PathVariable("id") Long id) {
         return leaveRequestService.getLeaveRequestById(id);
     }
+
     @PostMapping
-    public LeaveRequest createLeaveRequest(@RequestBody LeaveRequest leaveRequest) {
+    public LeaveRequest createLeaveRequest(@Valid @RequestBody LeaveRequest leaveRequest) {
         return leaveRequestService.createLeaveRequest(leaveRequest);
     }
+
     @PutMapping("/{id}")
-    public LeaveRequest updateLeaveRequest(@PathVariable Long id, @RequestBody LeaveRequest leaveRequestDetails) {
-        return leaveRequestService.updateLeaveRequest(id, leaveRequestDetails);
+    public LeaveRequest updateLeaveRequest(@PathVariable("id") Long id, @Valid @RequestBody LeaveRequest leaveRequest) {
+        return leaveRequestService.updateLeaveRequest(id, leaveRequest);
     }
+
     @DeleteMapping("/{id}")
-    public void deleteLeaveRequest(@PathVariable Long id) {
+    public void deleteLeaveRequest(@PathVariable("id") Long id) {
         leaveRequestService.deleteLeaveRequest(id);
     }
 }

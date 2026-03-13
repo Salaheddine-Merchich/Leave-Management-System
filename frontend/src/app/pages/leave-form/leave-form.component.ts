@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    DatePipe,
     HttpClientModule
   ],
   templateUrl: './leave-form.component.html',
@@ -26,7 +25,7 @@ export class LeaveFormComponent implements OnInit {
   isLoading = false;
   error: string | null = null;
 
-    statusOptions = [
+  statusOptions = [
     { value: 'APPROVED', label: 'APPROVED' },
     { value: 'PENDING', label: 'PENDING' },
     { value: 'REJECTED', label: 'REJECTED' }
@@ -37,7 +36,7 @@ export class LeaveFormComponent implements OnInit {
     private leaveService: LeaveService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Initialiser le formulaire
@@ -87,16 +86,16 @@ export class LeaveFormComponent implements OnInit {
 
     if (this.isEditMode && this.LeaveId) {
       console.log("haya ghtgad");
-      
+
       this.leaveService.updateLeaveRequest(this.LeaveId, leaveData).subscribe({
-        next: () => this.router.navigate(['/Leaves']),        
+        next: () => this.router.navigate(['/Leaves']),
         error: err => {
           this.error = 'Erreur lors de la mise à jour.';
           this.isLoading = false;
         }
-        
+
       });
-              console.log("tbedlo",leaveData.status);
+      console.log("tbedlo", leaveData.status);
 
     } else {
       this.leaveService.createLeaveRequests(leaveData).subscribe({

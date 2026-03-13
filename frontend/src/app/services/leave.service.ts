@@ -16,12 +16,12 @@ export interface LeaveRequest{
   providedIn: 'root'
 })
 export class LeaveService {
-    private apiUrl = 'http://localhost:8081/api/leave-requests';
+    private apiUrl = 'http://localhost:8080/api/leave-requests';
 
     constructor(private http:HttpClient) { }
 
     getAllLeaveRequests(): Observable<LeaveRequest[]> {
-        return this.http.get<LeaveRequest[]>('http://localhost:8081/api/leave-requests/all');
+        return this.http.get<LeaveRequest[]>('http://localhost:8080/api/leave-requests/all');
     }
     getLeaveRequestsById(id: number): Observable<LeaveRequest> {
       return this.http.get<LeaveRequest>(`${this.apiUrl}/${id}`);

@@ -6,6 +6,7 @@ import com.odiak.leaveManagement.backend.repositories.LeaveRequestRepository;
 import com.odiak.leaveManagement.backend.models.LeaveRequest;
 import java.util.List;
 import com.odiak.leaveManagement.backend.models.User;
+import com.odiak.leaveManagement.backend.repositories.UserRepository;
 
 @Service
 public class LeaveRequestService {
@@ -13,17 +14,34 @@ public class LeaveRequestService {
     @Autowired
     private LeaveRequestRepository leaveRequestRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<LeaveRequest> getAllLeaveRequests() {
         return leaveRequestRepository.findAll();
     }
+
     public LeaveRequest getLeaveRequestById(Long id) {
         return leaveRequestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Leave request not found with id: " + id));
     }
+
     public LeaveRequest createLeaveRequest(LeaveRequest leaveRequest) {
+        if (leaveRequest.getEndDate().isBefore(leaveRequest.getStartDate())) {
+            throw new RuntimeException("End date cannot be before start date");
+        }
+        if (leaveRequest.getUser() == null) {
+            User defaultUser = userRepository.findFirstByOrderByIdAsc()
+                    .orElseThrow(() -> new RuntimeException("No users found to assign to the leave request"));
+            leaveRequest.setUser(defaultUser);
+        }
         return leaveRequestRepository.save(leaveRequest);
     }
+
     public LeaveRequest updateLeaveRequest(Long id, LeaveRequest leaveRequestDetails) {
+        if (leaveRequestDetails.getEndDate().isBefore(leaveRequestDetails.getStartDate())) {
+            throw new RuntimeException("End date cannot be before start date");
+        }
         LeaveRequest leaveRequest = getLeaveRequestById(id);
         leaveRequest.setStartDate(leaveRequestDetails.getStartDate());
         leaveRequest.setEndDate(leaveRequestDetails.getEndDate());
@@ -31,14 +49,17 @@ public class LeaveRequestService {
         leaveRequest.setStatus(leaveRequestDetails.getStatus());
         return leaveRequestRepository.save(leaveRequest);
     }
+
     public void deleteLeaveRequest(Long id) {
         LeaveRequest leaveRequest = getLeaveRequestById(id);
         leaveRequestRepository.delete(leaveRequest);
     }
+
     public List<LeaveRequest> findByUser(User user) {
         return leaveRequestRepository.findByUser(user);
     }
-    public List<LeaveRequest> findByStatus(LeaveRequest.LeaveStatus status){
+
+    public List<LeaveRequest> findByStatus(LeaveRequest.LeaveStatus status) {
         return leaveRequestRepository.findByStatus(status);
     }
 }

@@ -1,22 +1,17 @@
 # === Java (Spring Boot) ===
-/target
+backend/target/
 *.class
 *.jar
 *.war
 
-# Ignore sensitive Spring Boot config
-src/main/resources/application.properties
-backend\target\classes\application.properties
 # === Angular ===
-/node_modules
-/dist
-.angular
-/.angular/cache
-/.angular/config.json
-/.env          # If you store frontend env vars
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
 
 # === Logs and OS Junk ===
 *.log
+*.hprof
 .DS_Store
 Thumbs.db
 
@@ -25,5 +20,14 @@ Thumbs.db
 .env.local
 .env.*.local
 
-# === VSCode (if you use it) ===
+# === IDE ===
 .vscode/
+.idea/
+*.iml
+
+# === JMeter (temporary test outputs) ===
+testing/jmeter/*.jtl
+testing/jmeter/*.log
+testing/jmeter/*.hprof
+testing/jmeter/rapport-*/
+testing/jmeter/temp/

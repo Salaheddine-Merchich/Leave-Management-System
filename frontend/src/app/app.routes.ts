@@ -1,18 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component'
-import { LeaveListComponent } from './pages/leave-list/leave-list.component'
-import { LeaveInfoComponent } from './pages/leave-info/leave-info.component'
-import { LeaveFormComponent } from './pages/leave-form/leave-form.component'
-import { EmployeeListComponent } from './pages/employee-list/employee-list.component'
-import { EmployeeInfoComponent } from './pages/employee-info/employee-info.component'
 
 export const routes: Routes = [
-    { path : '', component: HomeComponent},
-    { path : 'Leaves', component: LeaveListComponent},
-    { path : 'info-leave/:id', component: LeaveInfoComponent},
-    { path : 'edit-leave/:id', component: LeaveFormComponent},
-    { path : 'add-leave', component: LeaveFormComponent},
-    { path : 'employees', component: EmployeeListComponent},
-    { path : 'info-employee/:id', component: EmployeeInfoComponent},
-
+    { path : '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)},
+    { path : 'Leaves', loadComponent: () => import('./pages/leave-list/leave-list.component').then(m => m.LeaveListComponent)},
+    { path : 'info-leave/:id', loadComponent: () => import('./pages/leave-info/leave-info.component').then(m => m.LeaveInfoComponent)},
+    { path : 'edit-leave/:id', loadComponent: () => import('./pages/leave-form/leave-form.component').then(m => m.LeaveFormComponent)},
+    { path : 'add-leave', loadComponent: () => import('./pages/leave-form/leave-form.component').then(m => m.LeaveFormComponent)},
+    { path : 'employees', loadComponent: () => import('./pages/employee-list/employee-list.component').then(m => m.EmployeeListComponent)},
+    { path : 'info-employee/:id', loadComponent: () => import('./pages/employee-info/employee-info.component').then(m => m.EmployeeInfoComponent)},
 ];

@@ -1,7 +1,7 @@
 <section class="leave-info-container">
   <h2 class="section-title">👥 Leave Information</h2>
 
-  <ul class="leave-info-list">
+  <ul class="leave-info-list" *ngIf="leaveRequest">
     <li class="leave-info-card">
       <div class="leave-info-content">
         <h3>📌 Reason: <span>{{ leaveRequest.reason }}</span></h3>
