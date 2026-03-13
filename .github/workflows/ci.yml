@@ -98,16 +98,18 @@ jobs:
 
       - name: Start Frontend Server
         working-directory: ./frontend
-        run: ng serve &
+        run: ng serve --no-analytics &
+        env:
+          NG_CLI_ANALYTICS: ci
 
       - name: Wait for Servers to be Ready
         run: |
           echo "Waiting for backend on port 8080..."
-          while ! nc -z localhost 8080; do sleep 1; done
+          while ! nc -z 127.0.0.1 8080; do sleep 1; done
           echo "Backend is up!"
           
           echo "Waiting for frontend on port 4200..."
-          while ! nc -z localhost 4200; do sleep 1; done
+          while ! nc -z 127.0.0.1 4200; do sleep 1; done
           echo "Frontend is up!"
 
       - name: Run Selenium E2E Tests
