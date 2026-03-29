@@ -98,9 +98,7 @@ jobs:
 
       - name: Start Frontend Server
         working-directory: ./frontend
-        run: ng serve --no-analytics &
-        env:
-          NG_CLI_ANALYTICS: ci
+        run: npx ng serve --host 127.0.0.1 --port 4200 --no-analytics --disable-host-check > frontend.log 2>&1 &
 
       - name: Wait for Servers to be Ready
         run: |
