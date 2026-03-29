@@ -77,7 +77,43 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- By default, exclude all E2E/Selenium tests (they require a running frontend) -->
+					<excludes>
+						<exclude>**/*E2ETest.java</exclude>
+						<exclude>**/*TestSuite.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<!-- Activate this profile with: mvnw test -Pe2e -->
+	<profiles>
+		<profile>
+			<id>e2e</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<!-- Override: run ONLY E2E tests in this profile -->
+							<excludes>
+								<exclude>none</exclude>
+							</excludes>
+							<includes>
+								<include>**/*E2ETest.java</include>
+								<include>**/*TestSuite.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

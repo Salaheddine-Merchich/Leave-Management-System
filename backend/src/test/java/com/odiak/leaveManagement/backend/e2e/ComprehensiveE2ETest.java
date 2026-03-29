@@ -36,6 +36,7 @@ public class ComprehensiveE2ETest extends BaseTest {
         assertTrue(employeeListPage.isAtEmployeeList(), "Should navigate to /employees");
 
         homePage.clickAddLeave();
+        wait.until(ExpectedConditions.urlContains("/add-leave"));
         assertTrue(driver.getCurrentUrl().contains("/add-leave"), "Should navigate to /add-leave");
 
         // --- PHASE 2: Complete Leave Flow ---

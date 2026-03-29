@@ -1,7 +1,9 @@
 package com.odiak.leaveManagement.backend.e2e.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,21 +25,26 @@ public class LeaveFormPage {
     }
 
     public void fillForm(String startDate, String endDate, String reason, String status) {
-        org.openqa.selenium.WebElement startEl = wait
-                .until(ExpectedConditions.visibilityOfElementLocated(startDateInput));
-        org.openqa.selenium.WebElement endEl = driver.findElement(endDateInput);
+        WebElement startEl = wait.until(ExpectedConditions.visibilityOfElementLocated(startDateInput));
+        WebElement endEl = driver.findElement(endDateInput);
 
-        startEl.clear();
-        startEl.sendKeys(startDate);
+        // Force value inject using JS because Chrome headless date picker ignores sendKeys
+        // based on the OS Locale (e.g dd/mm/yyyy vs yyyy-mm-dd)
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        
+        js.executeScript("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input', { bubbles: true })); arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", startEl, startDate);
+        js.executeScript("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input', { bubbles: true })); arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", endEl, endDate);
 
-        endEl.clear();
-        endEl.sendKeys(endDate);
-
-        driver.findElement(reasonInput).clear();
-        driver.findElement(reasonInput).sendKeys(reason);
+        WebElement reasonEl = driver.findElement(reasonInput);
+        reasonEl.clear();
+        reasonEl.sendKeys(reason);
+        // Force angular update for reason just in case
+        js.executeScript("arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", reasonEl);
 
         Select statusDropdown = new Select(driver.findElement(statusSelect));
         statusDropdown.selectByValue(status);
+        // Dispatch change for select as well
+        js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", driver.findElement(statusSelect));
     }
 
     public void submitForm() {

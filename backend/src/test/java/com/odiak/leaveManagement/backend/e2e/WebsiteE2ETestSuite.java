@@ -44,6 +44,7 @@ public class WebsiteE2ETestSuite extends BaseTest {
         assertTrue(employeeListPage.isAtEmployeeList(), "Navigation to Employee List failed.");
 
         homePage.clickAddLeave();
+        wait.until(ExpectedConditions.urlContains("/add-leave"));
         assertTrue(driver.getCurrentUrl().contains("/add-leave"), "Navigation to Add Leave Form failed.");
 
         homePage.clickHome();
@@ -121,6 +122,10 @@ public class WebsiteE2ETestSuite extends BaseTest {
     public void testFormValidation() {
         homePage.navigateTo(BASE_URL);
         homePage.clickAddLeave();
+
+        // Wait for page to load
+        wait.until(ExpectedConditions.urlContains("/add-leave"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(org.openqa.selenium.By.cssSelector("button.submit-button")));
 
         // Submit button should be disabled for empty form
         boolean isEnabled = driver.findElement(org.openqa.selenium.By.cssSelector("button.submit-button")).isEnabled();

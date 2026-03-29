@@ -44,7 +44,7 @@ export class LeaveFormComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       reason: ['', Validators.required],
-      status: ['To Do', Validators.required]
+      status: ['PENDING', Validators.required]
     });
 
     // Vérifier si on est en mode "édition"
