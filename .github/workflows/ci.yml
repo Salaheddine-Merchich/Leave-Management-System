@@ -10,6 +10,9 @@ jobs:
   frontend-quality:
     name: Frontend Linter, Build & Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     defaults:
       run:
         working-directory: ./frontend
@@ -62,6 +65,9 @@ jobs:
     name: End-to-End Selenium Tests
     needs: [frontend-quality, backend-quality]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     
     steps:
       - name: Checkout Code
@@ -114,7 +120,7 @@ jobs:
 
       - name: Run Selenium E2E Tests
         working-directory: ./backend
-        run: ./mvnw test -Dtest="*E2ETest" -DbaseUrl="http://127.0.0.1:4200"
+        run: ./mvnw test -Dtest="*E2ETest" -DbaseUrl="http://localhost:4200"
         
       - name: Publish Test Results
         uses: dorny/test-reporter@v1
