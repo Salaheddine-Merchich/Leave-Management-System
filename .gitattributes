@@ -1,0 +1,6 @@
+# Ignore JMeter files and build directories for language statistics
+testing/jmeter/** linguist-vendored
+backend/target/** linguist-vendored
+frontend/dist/** linguist-vendored
+frontend/node_modules/** linguist-vendored
+*.html linguist-detectable=false
