@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LeaveDetailsPage {
     private WebDriverWait wait;
 
-    // Locators
     private By reasonHeader = By.cssSelector(".leave-info-content h3 span");
 
     public LeaveDetailsPage(WebDriver driver, WebDriverWait wait) {

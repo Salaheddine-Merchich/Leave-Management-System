@@ -20,25 +20,19 @@ public class LeaveRequestE2ETest extends BaseTest {
         LeaveFormPage leaveFormPage = new LeaveFormPage(driver, wait);
         LeaveListPage leaveListPage = new LeaveListPage(driver, wait);
 
-        // Define test data
         String testReason = "Vacations E2E Test " + System.currentTimeMillis();
         String testStartDate = "2026-06-15";
         String testEndDate = "2026-06-20";
         String testStatus = "PENDING";
 
-        // Step 1: Navigate to Home
         homePage.navigateTo(BASE_URL);
 
-        // Step 2: Click on "Add Leave"
         homePage.clickAddLeave();
 
-        // Step 3: Fill Leave Form
         leaveFormPage.fillForm(testStartDate, testEndDate, testReason, testStatus);
 
-        // Step 4: Submit Form
         leaveFormPage.submitForm();
 
-        // Step 5: Verify Redirection to List and Existence of the Request
         assertTrue(leaveListPage.isRedirectedToLeavesList(),
                 "Final URL should contain /Leaves.");
         assertTrue(leaveListPage.doesListContainReason(testReason),

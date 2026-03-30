@@ -51,7 +51,6 @@ public class LeaveRequestControllerIntegrationTest extends BaseIntegrationTest {
                 request.setStatus(LeaveRequest.LeaveStatus.PENDING);
                 request.setUser(testUser);
 
-                // Create request
                 mockMvc.perform(post("/api/leave-requests")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request)))
@@ -59,7 +58,6 @@ public class LeaveRequestControllerIntegrationTest extends BaseIntegrationTest {
                                 .andExpect(jsonPath("$.reason").value("Vacation"))
                                 .andExpect(jsonPath("$.user.id").value(testUser.getId()));
 
-                // Retrieve all
                 mockMvc.perform(get("/api/leave-requests/all"))
                                 .andExpect(status().isOk())
                                 .andExpect(jsonPath("$", hasSize(1)))

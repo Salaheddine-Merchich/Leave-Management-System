@@ -9,7 +9,6 @@ public class EmployeeDetailsPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Locators
     private By employeeName = By.cssSelector(".user-name");
     private By employeeEmail = By.cssSelector(".user-email");
 

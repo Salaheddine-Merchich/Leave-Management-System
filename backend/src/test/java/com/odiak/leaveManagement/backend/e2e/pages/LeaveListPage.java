@@ -12,7 +12,6 @@ public class LeaveListPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Locators
     private By leaveCard = By.cssSelector(".leave-card");
     private By leaveReasonText = By.cssSelector(".leave-info h2");
 

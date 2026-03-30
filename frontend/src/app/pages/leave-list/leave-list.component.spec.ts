@@ -12,10 +12,8 @@ describe('LeaveListComponent', () => {
   let leaveServiceMock: any;
 
   beforeEach(async () => {
-    // Create a mock service
     leaveServiceMock = jasmine.createSpyObj('LeaveService', ['getAllLeaveRequests', 'deleteLeaveRequest']);
     
-    // Default return values for the mock
     const mockLeaves: LeaveRequest[] = [
       { id: 1, reason: 'Vacances', startDate: new Date(), endDate: new Date(), status: 'PENDING' },
       { id: 2, reason: 'Maladie', startDate: new Date(), endDate: new Date(), status: 'APPROVED' }
@@ -45,7 +43,6 @@ describe('LeaveListComponent', () => {
   it('devrait appeler le service de suppression et retirer le congé de la liste', () => {
     fixture.detectChanges(); // initial load
     
-    // Simulate user confirming the alert
     spyOn(window, 'confirm').and.returnValue(true);
     
     component.deleteLeaveRequest(1);
@@ -53,7 +50,6 @@ describe('LeaveListComponent', () => {
     expect(window.confirm).toHaveBeenCalledWith('Êtes-vous sûr de vouloir supprimer cette tâche ?');
     expect(leaveServiceMock.deleteLeaveRequest).toHaveBeenCalledWith(1);
     
-    // Verify the item was removed from the local array
     expect(component.leaveRequests.length).toBe(1);
     expect(component.leaveRequests[0].id).toBe(2);
   });

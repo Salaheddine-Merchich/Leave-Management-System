@@ -12,7 +12,6 @@ public class EmployeeListPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Locators
     private By employeeCard = By.cssSelector(".user-card");
     private By employeeName = By.cssSelector(".user-info strong");
     private By infoLink = By.cssSelector(".info-link");

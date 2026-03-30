@@ -12,7 +12,6 @@ public class LeaveFormPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Locators
     private By startDateInput = By.id("startDate");
     private By endDateInput = By.id("endDate");
     private By reasonInput = By.id("reason");
@@ -28,8 +27,6 @@ public class LeaveFormPage {
         WebElement startEl = wait.until(ExpectedConditions.visibilityOfElementLocated(startDateInput));
         WebElement endEl = driver.findElement(endDateInput);
 
-        // Force value inject using JS because Chrome headless date picker ignores sendKeys
-        // based on the OS Locale (e.g dd/mm/yyyy vs yyyy-mm-dd)
         JavascriptExecutor js = (JavascriptExecutor) driver;
         
         js.executeScript("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input', { bubbles: true })); arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", startEl, startDate);
@@ -38,12 +35,10 @@ public class LeaveFormPage {
         WebElement reasonEl = driver.findElement(reasonInput);
         reasonEl.clear();
         reasonEl.sendKeys(reason);
-        // Force angular update for reason just in case
         js.executeScript("arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", reasonEl);
 
         Select statusDropdown = new Select(driver.findElement(statusSelect));
         statusDropdown.selectByValue(status);
-        // Dispatch change for select as well
         js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", driver.findElement(statusSelect));
     }
 

@@ -9,7 +9,6 @@ public class HomePage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    // Locators
     private By homeNavLink = By.linkText("Accueil");
     private By leavesNavLink = By.linkText("Congés");
     private By addLeaveNavLink = By.linkText("Ajouter");

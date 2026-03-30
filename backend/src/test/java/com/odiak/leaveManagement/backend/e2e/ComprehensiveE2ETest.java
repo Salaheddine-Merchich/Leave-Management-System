@@ -26,7 +26,6 @@ public class ComprehensiveE2ETest extends BaseTest {
         LeaveListPage leaveListPage = new LeaveListPage(driver, wait);
         EmployeeListPage employeeListPage = new EmployeeListPage(driver, wait);
 
-        // --- PHASE 1: Navigation ---
         homePage.navigateTo(BASE_URL);
 
         homePage.clickLeaves();
@@ -39,46 +38,31 @@ public class ComprehensiveE2ETest extends BaseTest {
         wait.until(ExpectedConditions.urlContains("/add-leave"));
         assertTrue(driver.getCurrentUrl().contains("/add-leave"), "Should navigate to /add-leave");
 
-        // --- PHASE 2: Complete Leave Flow ---
         String initialReason = "Full Test Reason " + System.currentTimeMillis();
         String updatedReason = "Updated Test Reason " + System.currentTimeMillis();
 
-        // 1. Add Leave
         leaveFormPage.fillForm("2026-07-01", "2026-07-05", initialReason, "PENDING");
         leaveFormPage.submitForm();
 
         assertTrue(leaveListPage.isRedirectedToLeavesList(), "After submission, should go to /Leaves");
         assertTrue(leaveListPage.doesListContainReason(initialReason), "Initial reason should be visible");
 
-        // 2. Edit Leave (the one we just added should be first or at least in the list)
-        // For simplicity, we assume clicking edit on the first one or finding it
-        // In a real app we might need better targeting, but for now let's use the exact
-        // reason
         leaveListPage.clickEditForReason(initialReason);
         assertTrue(driver.getCurrentUrl().contains("/edit-leave"), "Should be on edit page");
 
-        // Change reason
         leaveFormPage.fillForm("2026-07-01", "2026-07-10", updatedReason, "APPROVED");
         leaveFormPage.submitForm();
 
         assertTrue(leaveListPage.isRedirectedToLeavesList(), "After edit, should go to /Leaves");
         assertTrue(leaveListPage.doesListContainReason(updatedReason), "Updated reason should be visible");
 
-        // 3. Delete Leave
         leaveListPage.clickDeleteForReason(updatedReason);
         wait.until(ExpectedConditions.alertIsPresent()).accept();
 
-        // Wait a bit for delete or refresh
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
         }
-        // After delete, check if updatedReason is still there (if it was the only one
-        // or first one)
-        // Since we created it, we expect it to be gone if we only had one or if we
-        // targeted it.
-        // For this test, let's just assert the button was clickable and list is still
-        // functioning
         System.out.println("Delete clicked");
     }
 }

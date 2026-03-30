@@ -58,7 +58,6 @@ public class WebsiteE2ETestSuite extends BaseTest {
         String baseReason = "Cycle Request " + System.currentTimeMillis();
         String updatedReason = baseReason + " - UPDATED";
 
-        // 1. CREATE
         homePage.navigateTo(BASE_URL);
         homePage.clickAddLeave();
         leaveFormPage.fillForm("2026-08-01", "2026-08-10", baseReason, "PENDING");
@@ -67,17 +66,12 @@ public class WebsiteE2ETestSuite extends BaseTest {
         assertTrue(leaveListPage.isRedirectedToLeavesList(), "Should be redirected to the list after submission.");
         assertTrue(leaveListPage.doesListContainReason(baseReason), "The new leave request reason should be visible.");
 
-        // 2. VIEW DETAILS (Assuming it's the one we just added and might be first)
-        // Note: For deterministic testing, one might search for the element,
-        // but here we demonstrate the flow.
-        // We'll use JS to click details button if there's any ambiguity.
         leaveListPage.clickDetailsForReason(baseReason); // New method to add
         assertTrue(leaveDetailsPage.isAtLeaveDetails(), "Details page should be reached.");
         String actualReason = leaveDetailsPage.getReason();
         System.out.println("DEBUG-REASON: '" + actualReason + "'");
         assertTrue(actualReason.contains(baseReason), "Details should show the correct reason. Found: " + actualReason);
 
-        // 3. UPDATE
         homePage.clickLeaves();
         leaveListPage.clickEditForReason(baseReason);
         leaveFormPage.fillForm("2026-08-01", "2026-08-15", updatedReason, "APPROVED");
@@ -86,18 +80,15 @@ public class WebsiteE2ETestSuite extends BaseTest {
         assertTrue(leaveListPage.isRedirectedToLeavesList(), "Should be redirected to the list after update.");
         assertTrue(leaveListPage.doesListContainReason(updatedReason), "The updated reason should be visible.");
 
-        // 4. DELETE
         int sizeBefore = driver.findElements(org.openqa.selenium.By.cssSelector(".leave-card")).size();
         leaveListPage.clickDeleteForReason(updatedReason);
         wait.until(ExpectedConditions.alertIsPresent()).accept();
 
-        // Brief wait for deletion
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
         }
 
-        // After delete, check size or if list is empty
         int sizeAfter = driver.findElements(org.openqa.selenium.By.cssSelector(".leave-card")).size();
         System.out.println("Delele logic done: before size: " + sizeBefore + ", after size: " + sizeAfter);
     }
@@ -123,11 +114,9 @@ public class WebsiteE2ETestSuite extends BaseTest {
         homePage.navigateTo(BASE_URL);
         homePage.clickAddLeave();
 
-        // Wait for page to load
         wait.until(ExpectedConditions.urlContains("/add-leave"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(org.openqa.selenium.By.cssSelector("button.submit-button")));
 
-        // Submit button should be disabled for empty form
         boolean isEnabled = driver.findElement(org.openqa.selenium.By.cssSelector("button.submit-button")).isEnabled();
         assertTrue(!isEnabled, "Submit button should be disabled for empty fields.");
     }

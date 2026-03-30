@@ -33,7 +33,6 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         user.setPassword("password123");
         user.setRole(User.Role.EMPLOYEE);
 
-        // Create user
         mockMvc.perform(post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)))
@@ -41,7 +40,6 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
                 .andExpect(jsonPath("$.name").value("John Integration"))
                 .andExpect(jsonPath("$.email").value("integration@example.com"));
 
-        // Retrieve user
         mockMvc.perform(get("/api/users/all"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
